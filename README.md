@@ -1,4 +1,4 @@
-# FastAPI VSA-DDD Template
+# FastAPI VSA-DDD Template (WORK IN PROGRESS)
 
 A FastAPI template implementing Vertical Slice Architecture (VSA) and Domain-Driven Design (DDD) approach with async PostgreSQL support. Purposely for System Analysis and Design courses (KOM1337) so it may need some changes for another use.
 
@@ -66,14 +66,14 @@ check out my other template : [Nest TS Starter Kit](https://github.com/AghnatHs/
    pip install -r requirements.txt
    ```
 
-4. **Set up environment variables**
+3. **Set up environment variables**
 
    ```bash
    cp .env.example .env
    # Edit .env with your credentials
    ```
 
-5. **Install pre-commit hooks**
+4. **Install pre-commit hooks**
    ```bash
    pre-commit install
    ```
