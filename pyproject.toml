@@ -10,6 +10,7 @@ dependencies = [
     "black>=26.1.0",
     "fastapi>=0.128.7",
     "fastapi-users[sqlalchemy]>=15.0.4",
+    "pre-commit>=4.5.1",
     "psycopg2-binary>=2.9.11",
     "pytest>=9.0.2",
     "python-dotenv>=1.2.1",
