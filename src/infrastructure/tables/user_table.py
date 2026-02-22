@@ -14,7 +14,7 @@ from src.domain.user import User
 
 class UserTable(Base):
     """
-    Table that map to User domain model.
+    User representation in the database.
     """
 
     __tablename__ = "users"
