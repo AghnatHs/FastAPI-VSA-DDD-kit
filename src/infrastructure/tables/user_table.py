@@ -3,9 +3,11 @@ Table that map to User domain model.
 """
 
 import uuid
+from datetime import datetime
 
-from sqlalchemy import Column, String, DateTime, func
+from sqlalchemy import String, DateTime, func
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import Mapped, mapped_column
 from src.core.db import Base
 from src.domain.user import User
 
@@ -17,15 +19,26 @@ class UserTable(Base):
 
     __tablename__ = "users"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    email = Column(String, unique=True, nullable=False)
-    password = Column(String, nullable=False)
-    created_at = Column(
+    id: Mapped[uuid.UUID] = mapped_column(
+        UUID(as_uuid=True), primary_key=True, default=uuid.uuid4
+    )
+
+    email: Mapped[str] = mapped_column(String, unique=True, nullable=False)
+
+    password: Mapped[str] = mapped_column(String, nullable=False)
+
+    created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
         server_default=func.now(),
         nullable=False,
     )
-    updated_at = Column(DateTime(timezone=True), onupdate=func.now(), nullable=True)
+
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
+        server_default=func.now(),
+        onupdate=func.now(),
+        nullable=False,
+    )
 
     def to_domain(self) -> User:
         """Convert table model to domain model"""
