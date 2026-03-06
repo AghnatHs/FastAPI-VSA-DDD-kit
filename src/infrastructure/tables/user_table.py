@@ -9,7 +9,7 @@ from sqlalchemy import String, DateTime, func
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column
 from src.core.db import Base
-from src.domain.user import User
+from src.domain.entity.user import User
 
 
 class UserTable(Base):
@@ -25,7 +25,7 @@ class UserTable(Base):
 
     email: Mapped[str] = mapped_column(String, unique=True, nullable=False)
 
-    password: Mapped[str] = mapped_column(String, nullable=False)
+    hashed_password: Mapped[str] = mapped_column(String, nullable=False)
 
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True),
@@ -43,9 +43,9 @@ class UserTable(Base):
     def to_domain(self) -> User:
         """Convert table model to domain model"""
         return User(
-            nid=self.id,
+            id=self.id,
             email=self.email,
-            password=self.password,
+            hashed_password=self.hashed_password,
             created_at=self.created_at,
             updated_at=self.updated_at,
         )
@@ -56,7 +56,7 @@ class UserTable(Base):
         return cls(
             id=user.id,
             email=user.email,
-            password=user.password,
+            hashed_password=user.hashed_password,
             created_at=user.created_at,
             updated_at=user.updated_at,
         )

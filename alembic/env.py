@@ -16,16 +16,18 @@ def run_migrations_online() -> None:
         pool_pre_ping=True,
     )
 
+    def do_run_migrations(sync_conn) -> None:
+        context.configure(
+            connection=sync_conn,
+            target_metadata=target_metadata,
+            compare_type=True,
+        )
+        with context.begin_transaction():
+            context.run_migrations()
+
     async def run_async_migrations():
         async with connectable.connect() as connection:
-            await connection.run_sync(
-                lambda sync_conn: context.configure(
-                    connection=sync_conn,
-                    target_metadata=target_metadata,
-                    compare_type=True,
-                )
-            )
-            await connection.run_sync(lambda _: context.run_migrations())
+            await connection.run_sync(do_run_migrations)
 
     asyncio.run(run_async_migrations())
 
