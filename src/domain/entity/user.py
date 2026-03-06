@@ -11,25 +11,29 @@ class User:
     """User domain model"""
 
     @classmethod
-    def register(cls, email: str, password: str) -> Self:
+    def register(
+        cls,
+        email: str,
+        hashed_password: str,
+        created_at: datetime,
+        updated_at: datetime,
+    ) -> Self:
         """Register a new user with validation"""
         if "@" not in email:
             raise ValueError("Invalid email")
-        if len(password) < 8:
-            raise ValueError("Password too short")
 
-        return cls(uuid4(), email, password)
+        return cls(uuid4(), email, hashed_password, created_at, updated_at)
 
     def __init__(
         self,
-        nid: UUID,
+        id: UUID,
         email: str,
-        password: str,
-        created_at: datetime = None,
-        updated_at: datetime = None,
+        hashed_password: str,
+        created_at: datetime,
+        updated_at: datetime,
     ) -> None:
-        self.id = nid
+        self.id = id
         self.email = email
-        self.password = password
+        self.hashed_password = hashed_password
         self.created_at = created_at
         self.updated_at = updated_at
